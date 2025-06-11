@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Feliz Cumpleaños Valeria!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffeaf5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+    }
+
+    .gift-box {
+      width: 200px;
+      height: 200px;
+      background: #ff69b4;
+      position: relative;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease;
+      margin: 0 auto;
+    }
+
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 20px;
+      background: #fff;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    .gift-box::after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 20px;
+      background: #fff;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .lid {
+      width: 220px;
+      height: 50px;
+      background: #ff1493;
+      position: absolute;
+      top: -30px;
+      left: -10px;
+      border-radius: 10px;
+      transition: all 0.6s ease;
+      z-index: 2;
+    }
+
+    .image-container {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    .image-container img {
+      width: 80vw;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fcd;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(800px);
+        opacity: 0;
+      }
+    }
+
+    .open-button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .open-button:hover {
+      background-color: #ff1493;
+    }
+  </style>
+</head>
+<body>
+
+<audio id="birthdayAudio" src="music.mp3" preload="auto"></audio>
+
+<div class="container" id="mainContainer">
+  <div class="gift-box" id="giftBox">
+    <div class="lid" id="lid"></div>
+  </div>
+  <button class="open-button" onclick="openGift()">Abrir el regalo</button>
+</div>
+
+<div class="image-container" id="imageContainer">
+  <img src="valeria-cumple.jpg" alt="Feliz Cumpleaños Valeria">
+</div>
+
+<script>
+  function openGift() {
+    document.getElementById('lid').style.transform = 'rotate(-30deg) translateY(-100px)';
+    document.getElementById('giftBox').style.display = 'none';
+    document.querySelector('.open-button').style.display = 'none';
+    document.getElementById('imageContainer').style.display = 'block';
+
+    const audio = document.getElementById('birthdayAudio');
+    audio.play();
+
+    // Crear confeti
+    for (let i = 0; i < 100; i++) {
+      let confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.top = Math.random() * -200 + 'px';
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      confetti.style.opacity = Math.random();
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+    }
+  }
+</script>
+
+</body>
+</html>
